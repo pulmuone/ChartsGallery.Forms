@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChartsGallery.Forms.Demo.TabControl"
+             xmlns:local="clr-namespace:ChartsGallery.Forms"
+             xmlns:demo="clr-namespace:ChartsGallery.Forms.Demo">
+    <ContentView.Resources>
+        <local:BoolToStackOrientationConverter x:Key="boolToStackOrientationConverter"/>
+        <local:BoolToScrollOrientationConverter x:Key="boolToScrollOrientationConverter"/>
+        <local:InverseBoolConverter x:Key="inverseBoolConverter"/>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout Spacing="0"
+                     Orientation="{Binding IsLandscape, Converter={StaticResource boolToStackOrientationConverter}, ConverterParameter=inverse}"
+                     BackgroundColor="{Binding SelectedItemBackgroundColor}">
+            <Grid RowSpacing="0"
+                  ColumnSpacing="0">
+                <Grid RowSpacing="0"
+                      ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <BoxView BackgroundColor="{Binding BackgroundColor}"/>
+                    <BoxView Grid.Row="1"
+                             HeightRequest="1"
+                             BackgroundColor="{Binding BorderColor}"
+                             IsVisible="{Binding IsLandscape, Converter={StaticResource inverseBoolConverter}}"/>
+                    <BoxView Grid.Column="1"
+                             WidthRequest="1"
+                             BackgroundColor="{Binding BorderColor}"
+                             IsVisible="{Binding IsLandscape}"/>
+                </Grid>
+                
+                <ScrollView x:Name="scrollView"
+                            Orientation="{Binding IsLandscape, Converter={StaticResource boolToScrollOrientationConverter}}">
+                    <StackLayout x:Name="stackLayout"
+                                 Orientation="{Binding IsLandscape, Converter={StaticResource boolToStackOrientationConverter}}"
+                                 Spacing="0">
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+            <Grid x:Name="viewsContainer"
+                  VerticalOptions="FillAndExpand"
+                  HorizontalOptions="FillAndExpand"
+                  RowSpacing="0"
+                  ColumnSpacing="0"
+                  Margin="0,4,0,0">
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

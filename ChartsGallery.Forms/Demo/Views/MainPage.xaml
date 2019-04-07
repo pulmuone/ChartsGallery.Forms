@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:charts="clr-namespace:DevExpress.XamarinForms.Charts;assembly=DevExpress.XamarinForms.Charts"
+             xmlns:local="clr-namespace:ChartsGallery.Forms"
+             xmlns:views="clr-namespace:ChartsGallery.Forms.Views"
+             xmlns:demo="clr-namespace:ChartsGallery.Forms.Demo"
+             xmlns:vm="clr-namespace:ChartsGallery.Forms.ViewModels"
+             x:Class="ChartsGallery.Forms.Views.MainPage">
+    <ContentPage.Resources>
+        <charts:ChartStyle x:Key="lightChartStyle" BackgroundColor="#2391F8"/>
+        <charts:ChartStyle x:Key="darkChartStyle" BackgroundColor="#242424"/>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:MainViewModel x:Name="viewModel"/>
+    </ContentPage.BindingContext>
+    <NavigationPage.TitleView>
+        <Grid Margin="8,0"
+              ColumnSpacing="0"
+              RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Charts Gallery"
+                   FontSize="20"
+                   VerticalTextAlignment="Center"
+                   LineBreakMode="NoWrap"
+                   TextColor="White"/>
+            <demo:SvgIcon x:Name="icon"
+                          Grid.Column="2"
+                          ImageSource="Moon.svg"
+                          HeightRequest="24"
+                          WidthRequest="24"
+                          VerticalOptions="FillAndExpand"
+                          HorizontalOptions="FillAndExpand"
+                          Margin="4,0">
+                <demo:SvgIcon.Triggers>
+                    <DataTrigger TargetType="demo:SvgIcon" 
+                                 Binding="{Binding IsLightTheme}"
+                                 Value="false">
+                        <Setter Property="ImageSource"
+                                Value="Sun.svg"/>
+                    </DataTrigger>
+                </demo:SvgIcon.Triggers>
+                <demo:SvgIcon.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ThemeCommand}" CommandParameter="{Binding}"/>
+                </demo:SvgIcon.GestureRecognizers>
+            </demo:SvgIcon>
+            <demo:SvgIcon Grid.Column="3"
+                          ImageSource="Info.svg"
+                          HeightRequest="24"
+                          WidthRequest="24"
+                          VerticalOptions="FillAndExpand"
+                          HorizontalOptions="FillAndExpand"
+                          Margin="4,0">
+                <demo:SvgIcon.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding InfoCommand}" CommandParameter="{Binding Address}"/>
+                </demo:SvgIcon.GestureRecognizers>
+            </demo:SvgIcon>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <ListView x:Name="ItemsListView"
+              ItemsSource="{Binding Items}"
+              VerticalOptions="Fill"
+              HasUnevenRows="false"
+              RowHeight="80"
+              IsPullToRefreshEnabled="false"
+              ItemSelected="OnItemSelected"
+              SeparatorVisibility="None"
+              CachingStrategy="RecycleElement">
+        <ListView.Header>
+            <Grid x:Name="header"
+                  HeightRequest="100"
+                  ColumnSpacing="0"
+                  RowSpacing="0">
+                <charts:ChartView ChartStyle="{StaticResource lightChartStyle}">
+                    <charts:ChartView.Triggers>
+                        <DataTrigger TargetType="charts:ChartView" 
+                                     Binding="{Binding IsLightTheme}"
+                                     Value="false">
+                            <Setter Property="ChartStyle"
+                                    Value="{StaticResource darkChartStyle}"/>
+                        </DataTrigger>
+                    </charts:ChartView.Triggers>
+                    <charts:ChartView.AxisX>
+                        <charts:NumericAxisX Visible="false">
+                            <charts:NumericAxisX.Range>
+                                <charts:NumericRange SideMargin="0"/>
+                            </charts:NumericAxisX.Range>
+                        </charts:NumericAxisX>
+                    </charts:ChartView.AxisX>
+                    <charts:ChartView.AxisY>
+                        <charts:NumericAxisY Visible="false"
+                                             AutoRangeMode="VisibleValues"
+                                             AlwaysShowZeroLevel="false">
+                            <charts:NumericAxisY.Range>
+                                <charts:NumericRange SideMargin="0"/>
+                            </charts:NumericAxisY.Range>
+                            <charts:NumericAxisY.Style>
+                                <charts:AxisStyle MajorGridlinesVisible="False"/>
+                            </charts:NumericAxisY.Style>
+                        </charts:NumericAxisY>
+                    </charts:ChartView.AxisY>
+                    <charts:ChartView.Series>
+                        <charts:LineSeries Data="{Binding HeaderSeriesData}">
+                            <charts:LineSeries.Style>
+                                <charts:LineSeriesStyle Stroke="#CCCCFF"/>
+                            </charts:LineSeries.Style>
+                        </charts:LineSeries>
+                    </charts:ChartView.Series>
+                </charts:ChartView>
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
+                    <Label Text="{Binding Title}"
+                           FontSize="24"
+                           HorizontalOptions="Center"
+                           TextColor="White"/>
+                    <Label Text="{Binding Version}"
+                           FontSize="18"
+                           HorizontalOptions="Center"
+                           TextColor="White"/>
+                </StackLayout>
+            </Grid>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell> 
+                    <Grid Margin="8,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <demo:SvgIcon ImageSource="{Binding Icon}"
+                                      WidthRequest="80"
+                                      HeightRequest="80"/>
+                        <Grid Grid.Column="1"
+                              Margin="8,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0"
+                                   Text="{Binding Title}"
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemTextStyle}"
+                                   FontSize="20" 
+                                   VerticalOptions="Start"
+                                   Margin="0,4,0,2"/>
+                            <Label Grid.Row="1"
+                                   Text="{Binding Description}"
+                                   LineBreakMode="WordWrap"
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   TextColor="#FF909090"
+                                   FontSize="12"
+                                   VerticalOptions="Start"/>
+                        </Grid>
+                        <BoxView Grid.Row="1"
+                                 Grid.Column="1"
+                                 HeightRequest="1"
+                                 Margin="8,0,0,0"
+                                 Color="#40A0A0A0"
+                                 IsVisible="{Binding Path=., ConverterParameter={x:Reference viewModel}, Converter={views:DemoItemToBoolConverter}}">
+                        </BoxView>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="gAE-YM-kbH">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="StartViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DevExpress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="483">
+                                <rect key="frame" x="143" y="60" width="128" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="497"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHART GALLERY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="484">
+                                <rect key="frame" x="110.5" y="100.5" width="193" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="193" id="508"/>
+                                    <constraint firstAttribute="height" constant="21" id="509"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For Xamarin Forms platform" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="485">
+                                <rect key="frame" x="107" y="615" width="200" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="518"/>
+                                    <constraint firstAttribute="height" constant="21" id="519"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.1.4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="486">
+                                <rect key="frame" x="150" y="146.5" width="114" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="114" id="514"/>
+                                    <constraint firstAttribute="height" constant="21" id="515"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="570">
+                                <rect key="frame" x="57" y="167.5" width="300" height="447.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StartScreenImage" translatesAutoresizingMaskIntoConstraints="NO" id="545">
+                                        <rect key="frame" x="22" y="96" width="256" height="256"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="256" id="559"/>
+                                            <constraint firstAttribute="height" constant="256" id="560"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="576"/>
+                                    <constraint firstItem="545" firstAttribute="centerX" secondItem="570" secondAttribute="centerX" id="577"/>
+                                    <constraint firstItem="545" firstAttribute="centerY" secondItem="570" secondAttribute="centerY" id="578"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="483" secondAttribute="centerX" id="502"/>
+                            <constraint firstItem="483" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="60" id="503"/>
+                            <constraint firstAttribute="centerX" secondItem="484" secondAttribute="centerX" id="510"/>
+                            <constraint firstAttribute="centerX" secondItem="486" secondAttribute="centerX" id="512"/>
+                            <constraint firstAttribute="centerX" secondItem="485" secondAttribute="centerX" id="516"/>
+                            <constraint firstItem="570" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="573"/>
+                            <constraint firstItem="484" firstAttribute="top" secondItem="483" secondAttribute="bottom" constant="20" id="841"/>
+                            <constraint firstItem="486" firstAttribute="top" secondItem="484" secondAttribute="bottom" constant="25" id="842"/>
+                            <constraint firstItem="570" firstAttribute="top" secondItem="486" secondAttribute="bottom" id="847"/>
+                            <constraint firstItem="485" firstAttribute="top" secondItem="570" secondAttribute="bottom" id="848"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="485" secondAttribute="bottom" constant="100" id="1129"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="8" kind="show" identifier="mainMenuSegue" id="481"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="StartScreenImage" width="128" height="128"/>
+    </resources>
+</document>

@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage x:Class="ChartsGallery.Forms.Views.BarCharts"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:charts="clr-namespace:DevExpress.XamarinForms.Charts;assembly=DevExpress.XamarinForms.Charts"
+             xmlns:demo="clr-namespace:ChartsGallery.Forms.Demo"
+             xmlns:vm="clr-namespace:ChartsGallery.Forms.ViewModels"
+             xmlns:local="clr-namespace:ChartsGallery.Forms"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true">
+    <ContentPage.Resources>
+        <charts:SeriesHintOptions x:Key="barSeriesHintOptions"
+                                  PointTextPattern="{}{A}, {S}:&#x0a;{V$#,###}"/>
+        <charts:SeriesHintOptions x:Key="stackedBarSeriesHintOptions"
+                                  PointTextPattern="{}{A}: {V$#,###}"/>
+        <charts:SeriesHintOptions x:Key="fullStackedBarSeriesHintOptions"
+                                  PointTextPattern="{}{S}: {V}K"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,8,0,0"/>
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <demo:TabControl x:Name="tabControl">
+            <demo:TabItem ImageSource="TabItems.Bar.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:BarChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1">
+                        <charts:ChartView.Series>
+                            <charts:BarSeries Data="{Binding MaleSeriesData.Data}"
+                                              DisplayName="{Binding MaleSeriesData.DisplayName}"
+                                              HintOptions="{StaticResource barSeriesHintOptions}"/>
+                            <charts:BarSeries Data="{Binding FemaleSeriesData.Data}"
+                                              DisplayName="{Binding FemaleSeriesData.DisplayName}"
+                                              HintOptions="{StaticResource barSeriesHintOptions}"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Right"
+                                           VerticalPosition="Top"
+                                           Orientation="TopToBottom"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY LabelTextFormatter="{local:BarChartAxisLabelTextFormatter}">
+                                <charts:NumericAxisY.Title>
+                                    <charts:AxisTitle Text="Population, millions"/>
+                                </charts:NumericAxisY.Title>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.StackedBar.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:StackedBarChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1">
+                        <charts:ChartView.Series>
+                            <charts:StackedBarSeries Data="{Binding Male0to14and65SeriesData.Data}"
+                                                     DisplayName="{Binding Male0to14and65SeriesData.DisplayName}"
+                                                     HintOptions="{StaticResource stackedBarSeriesHintOptions}"/>
+                            <charts:StackedBarSeries Data="{Binding Male15to64SeriesData.Data}"
+                                                     DisplayName="{Binding Male15to64SeriesData.DisplayName}"
+                                                     HintOptions="{StaticResource stackedBarSeriesHintOptions}"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"
+                                           Orientation="TopToBottom"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY LabelTextFormatter="{local:BarChartAxisLabelTextFormatter}">
+                                <charts:NumericAxisY.Title>
+                                    <charts:AxisTitle Text="Population, millions"/>
+                                </charts:NumericAxisY.Title>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                        <charts:ChartView.Triggers>
+                            <DataTrigger TargetType="charts:ChartView"
+                                         Binding="{Binding Source={x:Reference tabControl}, Path=IsLandscape}"
+                                         Value="true">
+                                <Setter Property="Legend">
+                                    <Setter.Value>
+                                        <charts:Legend Orientation="TopToBottom"
+                                                       VerticalPosition="Top"
+                                                       HorizontalPosition="Right"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </charts:ChartView.Triggers>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.SideBySideStackedBar.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:SideBySideStackedBarChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1">
+                        <charts:ChartView.Series>
+                            <charts:SideBySideStackedBarSeries Data="{Binding Male0to14and65SeriesData.Data}"
+                                                               DisplayName="{Binding Male0to14and65SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="1"/>
+                            <charts:SideBySideStackedBarSeries Data="{Binding Male15to64SeriesData.Data}"
+                                                               DisplayName="{Binding Male15to64SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="1"/>
+                            <charts:SideBySideStackedBarSeries Data="{Binding Female0to14and65SeriesData.Data}"
+                                                               DisplayName="{Binding Female0to14and65SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="2"/>
+                            <charts:SideBySideStackedBarSeries Data="{Binding Female15to64SeriesData.Data}"
+                                                               DisplayName="{Binding Female15to64SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="2"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"
+                                           Orientation="TopToBottom"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY LabelTextFormatter="{local:BarChartAxisLabelTextFormatter}">
+                                <charts:NumericAxisY.Title>
+                                    <charts:AxisTitle Text="Population, millions"/>
+                                </charts:NumericAxisY.Title>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                        <charts:ChartView.ChartStyle>
+                            <charts:ChartStyle Palette="{Binding Palette}"/>
+                        </charts:ChartView.ChartStyle>
+                        <charts:ChartView.Triggers>
+                            <DataTrigger TargetType="charts:ChartView"
+                                         Binding="{Binding Source={x:Reference tabControl}, Path=IsLandscape}"
+                                         Value="true">
+                                <Setter Property="Legend">
+                                    <Setter.Value>
+                                        <charts:Legend Orientation="TopToBottom"
+                                                       VerticalPosition="Top"
+                                                       HorizontalPosition="Right"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </charts:ChartView.Triggers>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.FullStackedBar.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:FullStackedBarChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1">
+                        <charts:ChartView.Series>
+                            <charts:FullStackedBarSeries Data="{Binding ProjectorsSeriesData.Data}"
+                                                     DisplayName="{Binding ProjectorsSeriesData.DisplayName}"
+                                                     HintOptions="{StaticResource fullStackedBarSeriesHintOptions}"/>
+                            <charts:FullStackedBarSeries Data="{Binding TelevisionsSeriesData.Data}"
+                                                     DisplayName="{Binding TelevisionsSeriesData.DisplayName}"
+                                                     HintOptions="{StaticResource fullStackedBarSeriesHintOptions}"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"
+                                           Orientation="LeftToRight"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY>
+                                <charts:NumericAxisY.Label>
+                                    <charts:AxisLabel TextFormat="#%"/>
+                                </charts:NumericAxisY.Label>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.SideBySideFullStackedBar.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:SideBySideStackedBarChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1">
+                        <charts:ChartView.Series>
+                            <charts:SideBySideFullStackedBarSeries Data="{Binding Male0to14and65SeriesData.Data}"
+                                                               DisplayName="{Binding Male0to14and65SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="1"/>
+                            <charts:SideBySideFullStackedBarSeries Data="{Binding Male15to64SeriesData.Data}"
+                                                               DisplayName="{Binding Male15to64SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="1"/>
+                            <charts:SideBySideFullStackedBarSeries Data="{Binding Female0to14and65SeriesData.Data}"
+                                                               DisplayName="{Binding Female0to14and65SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="2"/>
+                            <charts:SideBySideFullStackedBarSeries Data="{Binding Female15to64SeriesData.Data}"
+                                                               DisplayName="{Binding Female15to64SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="2"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"
+                                           Orientation="TopToBottom"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY>
+                                <charts:NumericAxisY.Label>
+                                    <charts:AxisLabel TextFormat="#%"/>
+                                </charts:NumericAxisY.Label>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                        <charts:ChartView.ChartStyle>
+                            <charts:ChartStyle Palette="{Binding Palette}"/>
+                        </charts:ChartView.ChartStyle>
+                        <charts:ChartView.Triggers>
+                            <DataTrigger TargetType="charts:ChartView"
+                                         Binding="{Binding Source={x:Reference tabControl}, Path=IsLandscape}"
+                                         Value="true">
+                                <Setter Property="Legend">
+                                    <Setter.Value>
+                                        <charts:Legend Orientation="TopToBottom"
+                                                       VerticalPosition="Top"
+                                                       HorizontalPosition="RightOutside"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </charts:ChartView.Triggers>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.RotatedStackedBar.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:StackedBarChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1"
+                                      Rotated="true">
+                        <charts:ChartView.Series>
+                            <charts:StackedBarSeries Data="{Binding Male0to14and65SeriesData.Data}"
+                                                     DisplayName="{Binding Male0to14and65SeriesData.DisplayName}"
+                                                     HintOptions="{StaticResource stackedBarSeriesHintOptions}"/>
+                            <charts:StackedBarSeries Data="{Binding Male15to64SeriesData.Data}"
+                                                     DisplayName="{Binding Male15to64SeriesData.DisplayName}"
+                                                     HintOptions="{StaticResource stackedBarSeriesHintOptions}"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"
+                                           Orientation="LeftToRight"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY LabelTextFormatter="{local:BarChartAxisLabelTextFormatter}">
+                                <charts:NumericAxisY.Title>
+                                    <charts:AxisTitle Text="Population, millions"/>
+                                </charts:NumericAxisY.Title>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                        <charts:ChartView.Triggers>
+                            <DataTrigger TargetType="charts:ChartView"
+                                         Binding="{Binding Source={x:Reference tabControl}, Path=IsLandscape}"
+                                         Value="true">
+                                <Setter Property="Legend">
+                                    <Setter.Value>
+                                        <charts:Legend Orientation="TopToBottom"
+                                                       VerticalPosition="Top"
+                                                       HorizontalPosition="Right"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </charts:ChartView.Triggers>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.RotatedSideBySideStackedBar.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:SideBySideStackedBarChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1"
+                                      Rotated="true">
+                        <charts:ChartView.Series>
+                            <charts:SideBySideStackedBarSeries Data="{Binding Male0to14and65SeriesData.Data}"
+                                                               DisplayName="{Binding Male0to14and65SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="1"/>
+                            <charts:SideBySideStackedBarSeries Data="{Binding Male15to64SeriesData.Data}"
+                                                               DisplayName="{Binding Male15to64SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="1"/>
+                            <charts:SideBySideStackedBarSeries Data="{Binding Female0to14and65SeriesData.Data}"
+                                                               DisplayName="{Binding Female0to14and65SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="2"/>
+                            <charts:SideBySideStackedBarSeries Data="{Binding Female15to64SeriesData.Data}"
+                                                               DisplayName="{Binding Female15to64SeriesData.DisplayName}"
+                                                               HintOptions="{StaticResource stackedBarSeriesHintOptions}"
+                                                               StackedGroup="2"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"
+                                           Orientation="TopToBottom"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY LabelTextFormatter="{local:BarChartAxisLabelTextFormatter}">
+                                <charts:NumericAxisY.Title>
+                                    <charts:AxisTitle Text="Population, millions"/>
+                                </charts:NumericAxisY.Title>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                        <charts:ChartView.ChartStyle>
+                            <charts:ChartStyle Palette="{Binding Palette}"/>
+                        </charts:ChartView.ChartStyle>
+                        <charts:ChartView.Triggers>
+                            <DataTrigger TargetType="charts:ChartView"
+                                         Binding="{Binding Source={x:Reference tabControl}, Path=IsLandscape}"
+                                         Value="true">
+                                <Setter Property="Legend">
+                                    <Setter.Value>
+                                        <charts:Legend Orientation="TopToBottom"
+                                                       VerticalPosition="Top"
+                                                       HorizontalPosition="Right"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </charts:ChartView.Triggers>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+        </demo:TabControl>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage x:Class="ChartsGallery.Forms.Views.RealTimeData"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ChartsGallery.Forms.ViewModels"
+             xmlns:demo="clr-namespace:ChartsGallery.Forms.Demo"
+             xmlns:charts="clr-namespace:DevExpress.XamarinForms.Charts;assembly=DevExpress.XamarinForms.Charts"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true">
+    <ContentPage.Content>
+        <demo:Panel>
+             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Text="Device Acceleration"
+                       HorizontalTextAlignment="Center"
+                       FontSize="Medium"
+                       Margin="0,8"/>
+                <charts:ChartView Grid.Row="1" x:Name="chart">
+                    <charts:ChartView.Series>
+                        <charts:LineSeries DisplayName="X Axis"
+                                           Data="{Binding XAxisData}"/>
+                        <charts:LineSeries DisplayName="Y Axis"
+                                           Data="{Binding YAxisData}"/>
+                        <charts:LineSeries DisplayName="Z Axis"
+                                           Data="{Binding ZAxisData}"/>
+                    </charts:ChartView.Series>
+                    <charts:ChartView.AxisX>
+                        <charts:DateTimeAxisX Visible="false"
+                                              MeasureUnit="Millisecond">
+                        </charts:DateTimeAxisX>
+                    </charts:ChartView.AxisX>
+                    <charts:ChartView.AxisY>
+                        <charts:NumericAxisY AlwaysShowZeroLevel="false"
+                                             AutoRangeMode="VisibleValues"/>
+                    </charts:ChartView.AxisY>
+                    <charts:ChartView.Legend>
+                        <charts:Legend HorizontalPosition="Center"
+                                       VerticalPosition="BottomOutside">
+                        </charts:Legend>
+                    </charts:ChartView.Legend>
+                </charts:ChartView>
+            </Grid>
+        </demo:Panel>
+    </ContentPage.Content>
+</ContentPage>

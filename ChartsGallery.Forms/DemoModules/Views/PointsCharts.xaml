@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage x:Class="ChartsGallery.Forms.Views.PointsCharts"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:charts="clr-namespace:DevExpress.XamarinForms.Charts;assembly=DevExpress.XamarinForms.Charts"
+             xmlns:demo="clr-namespace:ChartsGallery.Forms.Demo"
+             xmlns:vm="clr-namespace:ChartsGallery.Forms.ViewModels"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true">
+    <ContentPage.Resources>
+        <charts:SeriesHintOptions x:Key="pointSeriesHintOptions"
+                                  PointTextPattern="{}{A$LLL}: {V}°C"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,8,0,0"/>
+        </Style>
+    </ContentPage.Resources>    
+    <ContentPage.Content>
+        <demo:TabControl>
+            <demo:TabItem ImageSource="TabItems.Point.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:PointChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1"
+                                      SelectionMode="Single"
+                                      SelectionKind="Point">
+                        <charts:ChartView.Series>
+                            <charts:PointSeries Data="{Binding NightMin.Data}"
+                                                DisplayName="{Binding NightMin.DisplayName}"
+                                                HintOptions="{StaticResource pointSeriesHintOptions}"
+                                                ColorEach="false"/>
+                            <charts:PointSeries Data="{Binding DayMax.Data}"
+                                                DisplayName="{Binding DayMax.DisplayName}"
+                                                HintOptions="{StaticResource pointSeriesHintOptions}"
+                                                ColorEach="false"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"
+                                           Orientation="LeftToRight"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.AxisX>
+                            <charts:DateTimeAxisX MeasureUnit="Month"
+                                                  GridAlignment="Month"
+                                                  GridSpacing="2">
+                                <charts:DateTimeAxisX.Label>
+                                    <charts:AxisLabel TextFormat="LLL"/>
+                                </charts:DateTimeAxisX.Label>
+                            </charts:DateTimeAxisX>
+                        </charts:ChartView.AxisX>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY>
+                                <charts:NumericAxisY.Range>
+                                    <charts:NumericRange SideMargin="3"/>
+                                </charts:NumericAxisY.Range>
+                                <charts:NumericAxisY.Label>
+                                    <charts:AxisLabel TextFormat="#°C"/>
+                                </charts:NumericAxisY.Label>
+                                <charts:NumericAxisY.ConstantLines>
+                                    <charts:NumericConstantLine AxisValue="{Binding AverageTempNight}"
+                                                                ShowBehind="true"
+                                                                VisibleInLegend="false">
+                                        <charts:NumericConstantLine.Title>
+                                            <charts:ConstantLineTitle Text="{Binding AverageTempNight, StringFormat='Average annual (night): {0}°C'}"/>
+                                        </charts:NumericConstantLine.Title>
+                                    </charts:NumericConstantLine>
+                                    <charts:NumericConstantLine AxisValue="{Binding AverageTempDay}"
+                                                                ShowBehind="true"
+                                                                VisibleInLegend="false">
+                                        <charts:NumericConstantLine.Title>
+                                            <charts:ConstantLineTitle Text="{Binding AverageTempDay, StringFormat='Average annual (day): {0}°C'}"/>
+                                        </charts:NumericConstantLine.Title>
+                                    </charts:NumericConstantLine>
+                                </charts:NumericAxisY.ConstantLines>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.Bubble.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:BubbleChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView x:Name="bubbleChart"
+                                      Grid.Row="1"
+                                      SelectionKind="Point"
+                                      SelectionMode="Single"
+                                      SelectionChanged="OnBubbleSelectionChanged">
+                        <charts:ChartView.Series>
+                            <charts:BubbleSeries x:Name="bubbleSeries"
+                                                 Data="{Binding SeriesData}"
+                                                 ColorEach="true">
+                                <charts:BubbleSeries.Label>
+                                    <charts:BubbleSeriesLabel Position="Outside"
+                                                              TextPattern="{}{W$$#.##B}"
+                                                              Angle="90"/>
+                                </charts:BubbleSeries.Label>
+                            </charts:BubbleSeries>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.AxisX>
+                            <charts:DateTimeAxisX MeasureUnit="Year"
+                                                  GridAlignment="Year"
+                                                  GridSpacing="2">
+                                <charts:DateTimeAxisX.Label>
+                                    <charts:AxisLabel TextFormat="yyyy"/>
+                                </charts:DateTimeAxisX.Label>
+                            </charts:DateTimeAxisX>
+                        </charts:ChartView.AxisX>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY AlwaysShowZeroLevel="false">
+                                <charts:NumericAxisY.Title>
+                                    <charts:AxisTitle Text="Production Budget, Millions of Dollars"/>
+                                </charts:NumericAxisY.Title>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                        <charts:ChartView.ChartStyle>
+                            <charts:ChartStyle Palette="{Binding Palette}"/>
+                        </charts:ChartView.ChartStyle>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+        </demo:TabControl>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage x:Class="ChartsGallery.Forms.Views.LargeDataset"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:charts="clr-namespace:DevExpress.XamarinForms.Charts;assembly=DevExpress.XamarinForms.Charts"
+             xmlns:demo="clr-namespace:ChartsGallery.Forms.Demo"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="buttonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <demo:Panel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             Margin="0,8">
+                    <Label Text="Total Points Count:"/>
+                    <Label Text="{Binding TotalPointsCount}"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1"
+                             Orientation="Horizontal"
+                             HorizontalOptions="Center">
+                    <Button Text="+10K"
+                            Style="{StaticResource buttonStyle}"
+                            Command="{Binding AddSeries}"
+                            CommandParameter="10000"/>
+                    <Grid WidthRequest="10"/>
+                    <Button Text="+25K"
+                            Style="{StaticResource buttonStyle}"
+                            Command="{Binding AddSeries}"
+                            CommandParameter="25000"/>
+                    <Grid WidthRequest="10"/>
+                    <Button Text="+50K"
+                            Style="{StaticResource buttonStyle}"
+                            Command="{Binding AddSeries}"
+                            CommandParameter="50000"/>
+                </StackLayout>
+                <charts:ChartView x:Name="chart"
+                                  Grid.Row="2"
+                                  AxisXNavigationMode="ScrollingAndZooming"
+                                  AxisYNavigationMode="ScrollingAndZooming"/>
+            </Grid>
+        </demo:Panel>
+    </ContentPage.Content>
+</ContentPage>

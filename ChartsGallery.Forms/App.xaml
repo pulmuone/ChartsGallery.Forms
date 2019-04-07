@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:charts="clr-namespace:DevExpress.XamarinForms.Charts;assembly=DevExpress.XamarinForms.Charts"
+             xmlns:views="clr-namespace:ChartsGallery.Forms.Views"
+             xmlns:demo="clr-namespace:ChartsGallery.Forms.Demo"
+             xmlns:local="clr-namespace:ChartsGallery.Forms"
+             x:Class="ChartsGallery.Forms.App">
+    <Application.Resources>
+        <Color x:Key="lightBackground">#FFFFFFFF</Color>
+        <Color x:Key="darkBackground">#FF303030</Color>
+        <Color x:Key="lightAppBarBackground">#2391F8</Color>
+        <Color x:Key="darkAppBarBackground">#242424</Color>
+
+        <Style x:Key="darkNavPage"
+               TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="{StaticResource darkAppBarBackground}" />
+        </Style>
+        <Style x:Key="lightNavPage"
+               TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="{StaticResource lightAppBarBackground}" />
+        </Style>
+        <Style x:Key="navPageStyle"
+               TargetType="NavigationPage"
+               BasedOn="{StaticResource lightNavPage}"/>
+        <Style TargetType="NavigationPage"
+               BasedOn="{StaticResource navPageStyle}">
+            <Setter Property="BarTextColor" Value="White"/>
+        </Style>
+
+        <Style x:Key="darkChart"
+               TargetType="charts:ChartBaseView">
+            <Setter Property="Theme" Value="Dark"/>
+        </Style>
+        <Style x:Key="lightChart"
+               TargetType="charts:ChartBaseView">
+            <Setter Property="Theme" Value="Light"/>
+        </Style>
+        <Style x:Key="chartStyle"
+               TargetType="charts:ChartBaseView"
+               BasedOn="{StaticResource lightChart}"/>
+        <Style TargetType="charts:ChartView"
+               BasedOn="{StaticResource chartStyle}"/>
+        <Style TargetType="charts:PieChartView"
+               BasedOn="{StaticResource chartStyle}"/>
+        
+        <Style x:Key="darkPanel"
+               TargetType="demo:Panel">
+            <Setter Property="BackgroundColor" Value="{StaticResource darkBackground}"/>
+        </Style>
+        <Style x:Key="lightPanel"
+               TargetType="demo:Panel">
+            <Setter Property="BackgroundColor" Value="{StaticResource lightBackground}"/>
+        </Style>
+        <Style x:Key="panelStyle"
+               TargetType="demo:Panel"
+               BasedOn="{StaticResource lightPanel}"/>
+        <Style TargetType="demo:Panel"
+               BasedOn="{StaticResource panelStyle}"/>
+
+        <Style x:Key="darkLabel"
+               TargetType="Label">
+            <Setter Property="TextColor" Value="#DDFFFFFF"/>
+        </Style>
+        <Style x:Key="lightLabel"
+               TargetType="Label">
+            <Setter Property="TextColor" Value="#CC000000"/>
+        </Style>
+        <Style x:Key="labelStyle"
+               TargetType="Label"
+               BasedOn="{StaticResource lightLabel}"/>
+        <Style TargetType="Label"
+               BasedOn="{StaticResource labelStyle}"/>
+               
+        
+        <Style x:Key="darkTabControl"
+               TargetType="demo:TabControl">
+            <Setter Property="BackgroundColor" Value="#FF404040"/>
+            <Setter Property="BorderColor" Value="#FF202020"/>
+            <Setter Property="SelectedItemBackgroundColor" Value="{StaticResource darkBackground}"/>
+        </Style>
+        <Style x:Key="lightTabControl"
+               TargetType="demo:TabControl">
+            <Setter Property="BackgroundColor" Value="#FFEEEEEE"/>
+            <Setter Property="BorderColor" Value="#FFCCCCCC"/>
+            <Setter Property="SelectedItemBackgroundColor" Value="{StaticResource lightBackground}"/>
+        </Style>
+        <Style x:Key="tabControlStyle"
+               TargetType="demo:TabControl"
+               BasedOn="{StaticResource lightTabControl}"/>
+        <Style TargetType="demo:TabControl"
+               BasedOn="{StaticResource tabControlStyle}"/>
+               
+        <Style x:Key="darkButton"
+               TargetType="Button">
+            <Setter Property="TextColor" Value="#DDFFFFFF"/>
+        </Style>
+        <Style x:Key="lightButton"
+               TargetType="Button">
+            <Setter Property="TextColor" Value="#CC000000"/>
+        </Style>
+        <Style x:Key="buttonStyle"
+               TargetType="Button"
+               BasedOn="{StaticResource lightButton}"/>
+        <Style TargetType="Button"
+               BasedOn="{StaticResource buttonStyle}"/>
+
+        <Style x:Key="darkListView"
+               TargetType="ListView">
+            <Setter Property="BackgroundColor" Value="#404040"/>
+        </Style>
+        <Style x:Key="lightListView"
+               TargetType="ListView">
+            <Setter Property="BackgroundColor" Value="#FFFFFF"/>
+        </Style>
+        <Style x:Key="listViewStyle"
+               TargetType="ListView"
+               BasedOn="{StaticResource lightListView}"/>
+        <Style TargetType="ListView"
+               BasedOn="{StaticResource listViewStyle}"/>
+    </Application.Resources>
+    <Application.MainPage>
+        <NavigationPage>
+            <x:Arguments>
+                <views:MainPage/>
+            </x:Arguments>
+        </NavigationPage>
+    </Application.MainPage>
+</Application>

@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage x:Class="ChartsGallery.Forms.Views.LineCharts"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:charts="clr-namespace:DevExpress.XamarinForms.Charts;assembly=DevExpress.XamarinForms.Charts"
+             xmlns:demo="clr-namespace:ChartsGallery.Forms.Demo"
+             xmlns:vm="clr-namespace:ChartsGallery.Forms.ViewModels"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true">
+     <ContentPage.Resources>
+        <charts:SeriesHintOptions x:Key="lineSeriesHintOptions"
+                                  PointTextPattern="{}{A$yyyy}: {V}M"/>
+        <charts:ConstantLineTitle x:Key="emptyConstantLineTitle" Visible="false"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,8,0,0"/>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <demo:TabControl>
+            <demo:TabItem ImageSource="TabItems.Line.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:LineChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1"
+                                      SelectionMode="Single"
+                                      SelectionKind="Series">
+                        <charts:ChartView.Series>
+                            <charts:LineSeries Data="{Binding Europe.Data}"
+                                               DisplayName="{Binding Europe.DisplayName}"
+                                               MarkersVisible="true"
+                                               HintOptions="{StaticResource lineSeriesHintOptions}"/>
+                            <charts:LineSeries Data="{Binding Americas.Data}"
+                                               DisplayName="{Binding Americas.DisplayName}"
+                                               MarkersVisible="true"
+                                               HintOptions="{StaticResource lineSeriesHintOptions}"/>
+                            <charts:LineSeries Data="{Binding Africa.Data}"
+                                               DisplayName="{Binding Africa.DisplayName}"
+                                               MarkersVisible="true"
+                                               HintOptions="{StaticResource lineSeriesHintOptions}"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Hint>
+                            <charts:Hint>
+                                <charts:Hint.Behavior>
+                                    <charts:TooltipHintBehavior/>
+                                </charts:Hint.Behavior>
+                            </charts:Hint>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"
+                                           Orientation="LeftToRight"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.AxisX>
+                            <charts:DateTimeAxisX>
+                                <charts:DateTimeAxisX.Strips>
+                                    <charts:DateTimeStrip MaxLimitEnabled="false"
+                                                          VisibleInLegend="false"
+                                                          MinLimit="{Binding CurrentDate}"/>
+                                </charts:DateTimeAxisX.Strips>
+                                <charts:DateTimeAxisX.ConstantLines>
+                                    <charts:DateTimeConstantLine AxisValue="{Binding CurrentDate}"
+                                                                 VisibleInLegend="false">
+                                        <charts:DateTimeConstantLine.Title>
+                                            <charts:ConstantLineTitle Text="{Binding CurrentDate, StringFormat='{0:yyyy}'}"/>
+                                        </charts:DateTimeConstantLine.Title>
+                                    </charts:DateTimeConstantLine>
+                                </charts:DateTimeAxisX.ConstantLines>
+                                <charts:DateTimeAxisX.Label>
+                                    <charts:AxisLabel TextFormat="yyyy"/>
+                                </charts:DateTimeAxisX.Label>
+                            </charts:DateTimeAxisX>
+                        </charts:ChartView.AxisX>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY>
+                                <charts:NumericAxisY.Label>
+                                    <charts:AxisLabel TextFormat="#M"/>
+                                </charts:NumericAxisY.Label>
+                                <charts:NumericAxisY.Title>
+                                    <charts:AxisTitle Text="Population mid-year, millions"/>
+                                </charts:NumericAxisY.Title>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                    </charts:ChartView>
+                </Grid>       
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.Scatter.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:ScatterLineChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1"
+                                      SelectionMode="Single"
+                                      SelectionKind="Point">
+                        <charts:ChartView.Series>
+                            <charts:ScatterLineSeries Data="{Binding SeriesData}"
+                                                      DisplayName="{Binding Title}"
+                                                      MarkersVisible="true">
+                                <charts:ScatterLineSeries.HintOptions>
+                                    <charts:SeriesHintOptions PointTextPattern="X={A}, Y={V}"/>
+                                </charts:ScatterLineSeries.HintOptions>
+                            </charts:ScatterLineSeries>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Hint>
+                            <charts:Hint>
+                                <charts:Hint.Behavior>
+                                    <charts:TooltipHintBehavior/>
+                                </charts:Hint.Behavior>
+                            </charts:Hint>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.AxisX>
+                            <charts:NumericAxisX GridAlignment="3">
+                                <charts:NumericAxisX.Style>
+                                    <charts:AxisStyle MajorGridlinesVisible="True"/>
+                                </charts:NumericAxisX.Style>
+                                <charts:NumericAxisX.ConstantLines>
+                                  <charts:NumericConstantLine AxisValue="0"
+                                                              ShowBehind="true">
+                                        <charts:NumericConstantLine.Title>
+                                            <charts:ConstantLineTitle Visible="false"/>
+                                        </charts:NumericConstantLine.Title>
+                                    </charts:NumericConstantLine>
+                                </charts:NumericAxisX.ConstantLines>
+                            </charts:NumericAxisX>
+                        </charts:ChartView.AxisX>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY GridAlignment="3">
+                                <charts:NumericAxisY.ConstantLines>
+                                    <charts:NumericConstantLine AxisValue="0"
+                                                                ShowBehind="true">
+                                        <charts:NumericConstantLine.Title>
+                                            <charts:ConstantLineTitle Visible="false"/>
+                                        </charts:NumericConstantLine.Title>
+                                    </charts:NumericConstantLine>
+                                </charts:NumericAxisY.ConstantLines>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                    </charts:ChartView>
+                </Grid>        
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.StepLine.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:StepLineChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1"
+                                      SelectionMode="None">
+                        <charts:ChartView.Series>
+                            <charts:StepLineSeries Data="{Binding DieselPrices.Data}"
+                                                   DisplayName="{Binding DieselPrices.DisplayName}"
+                                                   MarkersVisible="true">
+                                <charts:StepLineSeries.Label>
+                                    <charts:MarkerSeriesLabel Angle="-45"/>
+                                </charts:StepLineSeries.Label>
+                                <charts:StepLineSeries.HintOptions>
+                                    <charts:SeriesHintOptions PointTextPattern="{}{A$LLL yyyy}: ${V}/gallon"/>
+                                </charts:StepLineSeries.HintOptions>
+                            </charts:StepLineSeries>
+                        </charts:ChartView.Series>
+                         <charts:ChartView.AxisY>
+                            <charts:NumericAxisY AlwaysShowZeroLevel="false">
+                                <charts:NumericAxisY.Title>
+                                    <charts:AxisTitle Text="$/gallon"
+                                                      Alignment="Outside"/>
+                                </charts:NumericAxisY.Title>
+                            </charts:NumericAxisY >
+                        </charts:ChartView.AxisY>   
+                        <charts:ChartView.AxisX>
+                            <charts:DateTimeAxisX MeasureUnit="Month">
+                                <charts:DateTimeAxisX.Label>
+                                    <charts:AxisLabel TextFormat="LLL yyyy"/>
+                                </charts:DateTimeAxisX.Label>
+                            </charts:DateTimeAxisX>
+                        </charts:ChartView.AxisX>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+        </demo:TabControl>
+    </ContentPage.Content>
+</ContentPage>

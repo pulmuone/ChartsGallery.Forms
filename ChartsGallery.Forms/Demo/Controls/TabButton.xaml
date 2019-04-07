@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:demo="clr-namespace:ChartsGallery.Forms.Demo"
+             xmlns:local="clr-namespace:ChartsGallery.Forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChartsGallery.Forms.Demo.TabButton">
+    <ContentView.Resources>
+        <local:InverseBoolConverter x:Key="inverseBoolConverter"/>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid RowSpacing="0"
+              ColumnSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <BoxView x:Name="horizontalBackground"
+                     Grid.RowSpan="2"
+                     BackgroundColor="{Binding SelectedColor}"
+                     IsVisible="false"/>
+            <BoxView x:Name="verticalBackground"
+                     Grid.ColumnSpan="2"
+                     BackgroundColor="{Binding SelectedColor}"
+                     IsVisible="false"/>
+            <demo:SvgIcon ImageSource="{Binding ImageSource}"
+                          HeightRequest="30"
+                          WidthRequest="30"
+                          HorizontalOptions="CenterAndExpand"
+                          VerticalOptions="CenterAndExpand"/>
+            <BoxView Grid.Column="1"
+                     WidthRequest="1"
+                     Color="{Binding BorderColor}"
+                     IsVisible="{Binding IsVertical, Converter={StaticResource inverseBoolConverter}}"/>
+            <BoxView Grid.Row="1"
+                     HeightRequest="1"
+                     Color="{Binding BorderColor}"
+                     IsVisible="{Binding IsVertical}"/>
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

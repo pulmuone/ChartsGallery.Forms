@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage x:Class="ChartsGallery.Forms.Views.AreaCharts"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:demo="clr-namespace:ChartsGallery.Forms.Demo"
+             xmlns:charts="clr-namespace:DevExpress.XamarinForms.Charts;assembly=DevExpress.XamarinForms.Charts"
+             xmlns:vm="clr-namespace:ChartsGallery.Forms.ViewModels"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true">
+    <ContentPage.Resources>
+        <charts:SeriesHintOptions x:Key="areaSeriesHintOptions"
+                                  PointTextPattern="{}{S}&#x0a;{A$yyyy}: ${V}K"/>
+        <charts:MarkerSeriesLabel x:Key="areaSeriesLabel"
+                                  TextPattern="${V$#.#}M"/>
+        <charts:SeriesHintOptions x:Key="stackedAreaSeriesHintOptions"
+                                  PointTextPattern="{}{S}&#x0a;{A$yyyy}: ${V}M"/>
+        <charts:MarkerSeriesLabel x:Key="stackedAreaSeriesLabel"
+                                  TextPattern="${V$#.#}M"/>
+        <charts:SeriesHintOptions x:Key="fullStackedAreaSeriesHintOptions"
+                                  PointTextPattern="{}{S}&#x0a;{A$yyyy}: {VP$#%}"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,8,0,0"/>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <demo:TabControl>
+            <demo:TabItem ImageSource="TabItems.Area.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:AreaChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1"
+                                      SelectionMode="Single"
+                                      SelectionKind="Series">
+                        <charts:ChartView.Series>
+                            <charts:AreaSeries Data="{Binding DevAVNorth.Data}"
+                                               DisplayName="{Binding DevAVNorth.DisplayName}"
+                                               HintOptions="{StaticResource areaSeriesHintOptions}"
+                                               Label="{StaticResource areaSeriesLabel}"
+                                               MarkersVisible="true">
+                            </charts:AreaSeries>
+                            <charts:AreaSeries Data="{Binding DevAVSouth.Data}"
+                                               DisplayName="{Binding DevAVSouth.DisplayName}"
+                                               HintOptions="{StaticResource areaSeriesHintOptions}"
+                                               Label="{StaticResource areaSeriesLabel}"
+                                               MarkersVisible="true"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"
+                                           Orientation="LeftToRight"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.AxisX>
+                            <charts:DateTimeAxisX MeasureUnit="Year">
+                                <charts:DateTimeAxisX.Label>
+                                    <charts:AxisLabel TextFormat="yyyy"/>
+                                </charts:DateTimeAxisX.Label>
+                            </charts:DateTimeAxisX>
+                        </charts:ChartView.AxisX>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY AlwaysShowZeroLevel="false">
+                                <charts:NumericAxisY.Title>
+                                    <charts:AxisTitle Text="Thousands US$"
+                                                      Alignment="Outside"/>
+                                </charts:NumericAxisY.Title>
+                                <charts:NumericAxisY.Label>
+                                    <charts:AxisLabel TextFormat="$#K"/>
+                                </charts:NumericAxisY.Label>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.StackedArea.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:StackedAreaChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1"
+                                      SelectionMode="Single"
+                                      SelectionKind="Series">
+                        <charts:ChartView.Series>
+                            <charts:StackedAreaSeries Data="{Binding NorthAmerica.Data}"
+                                                      DisplayName="{Binding NorthAmerica.DisplayName}"
+                                                      HintOptions="{StaticResource stackedAreaSeriesHintOptions}"
+                                                      Label="{StaticResource stackedAreaSeriesLabel}"
+                                                      MarkersVisible="true"/>
+                            <charts:StackedAreaSeries Data="{Binding Europe.Data}"
+                                                      DisplayName="{Binding Europe.DisplayName}"
+                                                      HintOptions="{StaticResource stackedAreaSeriesHintOptions}"
+                                                      Label="{StaticResource stackedAreaSeriesLabel}"
+                                                      MarkersVisible="true"/>
+                            <charts:StackedAreaSeries Data="{Binding Australia.Data}"
+                                                      DisplayName="{Binding Australia.DisplayName}"
+                                                      HintOptions="{StaticResource stackedAreaSeriesHintOptions}"
+                                                      Label="{StaticResource stackedAreaSeriesLabel}"
+                                                      MarkersVisible="true"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"
+                                           Orientation="LeftToRight"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.AxisX>
+                            <charts:DateTimeAxisX MeasureUnit="Year">
+                                <charts:DateTimeAxisX.Label>
+                                    <charts:AxisLabel TextFormat="yyyy"/>
+                                </charts:DateTimeAxisX.Label>
+                            </charts:DateTimeAxisX>
+                        </charts:ChartView.AxisX>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY>
+                                <charts:NumericAxisY.Title>
+                                    <charts:AxisTitle Text="Millions US$"
+                                                      Alignment="Outside"/>
+                                </charts:NumericAxisY.Title>
+                                <charts:NumericAxisY.Label>
+                                    <charts:AxisLabel TextFormat="$#M"/>
+                                </charts:NumericAxisY.Label>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.FullStackedArea.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:FullStackedAreaChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1"
+                                      SelectionMode="Single"
+                                      SelectionKind="Series">
+                        <charts:ChartView.Series>
+                            <charts:FullStackedAreaSeries Data="{Binding DevAVEast.Data}"
+                                                          DisplayName="{Binding DevAVEast.DisplayName}"
+                                                          HintOptions="{StaticResource fullStackedAreaSeriesHintOptions}"
+                                                          Label="{StaticResource stackedAreaSeriesLabel}"
+                                                          MarkersVisible="true"/>
+                            <charts:FullStackedAreaSeries Data="{Binding DevAVWest.Data}"
+                                                          DisplayName="{Binding DevAVWest.DisplayName}"
+                                                          HintOptions="{StaticResource fullStackedAreaSeriesHintOptions}"
+                                                          Label="{StaticResource stackedAreaSeriesLabel}"
+                                                          MarkersVisible="true"/>
+                            <charts:FullStackedAreaSeries Data="{Binding DevAVSouth.Data}"
+                                                          DisplayName="{Binding DevAVSouth.DisplayName}"
+                                                          HintOptions="{StaticResource fullStackedAreaSeriesHintOptions}"
+                                                          Label="{StaticResource stackedAreaSeriesLabel}"
+                                                          MarkersVisible="true"/>
+                            <charts:FullStackedAreaSeries Data="{Binding DevAVCenter.Data}"
+                                                          DisplayName="{Binding DevAVCenter.DisplayName}"
+                                                          HintOptions="{StaticResource fullStackedAreaSeriesHintOptions}"
+                                                          Label="{StaticResource stackedAreaSeriesLabel}"
+                                                          MarkersVisible="true"/>
+                            <charts:FullStackedAreaSeries Data="{Binding DevAVNorth.Data}"
+                                                          DisplayName="{Binding DevAVNorth.DisplayName}"
+                                                          HintOptions="{StaticResource fullStackedAreaSeriesHintOptions}"
+                                                          Label="{StaticResource stackedAreaSeriesLabel}"
+                                                          MarkersVisible="true"/>
+                        </charts:ChartView.Series>
+                        <charts:ChartView.Legend>
+                            <charts:Legend HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"
+                                           Orientation="LeftToRight"/>
+                        </charts:ChartView.Legend>
+                        <charts:ChartView.Hint>
+                            <charts:Hint/>
+                        </charts:ChartView.Hint>
+                        <charts:ChartView.AxisX>
+                            <charts:DateTimeAxisX MeasureUnit="Year">
+                                <charts:DateTimeAxisX.Label>
+                                    <charts:AxisLabel TextFormat="yyyy"/>
+                                </charts:DateTimeAxisX.Label>
+                            </charts:DateTimeAxisX>
+                        </charts:ChartView.AxisX>
+                        <charts:ChartView.AxisY>
+                            <charts:NumericAxisY>
+                                <charts:NumericAxisY.Label>
+                                    <charts:AxisLabel TextFormat="#%"/>
+                                </charts:NumericAxisY.Label>
+                            </charts:NumericAxisY>
+                        </charts:ChartView.AxisY>   
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.StepArea.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:StepAreaChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:ChartView Grid.Row="1"
+                                      SelectionMode="None">
+                        <charts:ChartView.Series>
+                            <charts:StepAreaSeries Data="{Binding DieselPrices.Data}"
+                                                   DisplayName="{Binding DieselPrices.DisplayName}"
+                                                   MarkersVisible="true">
+                                <charts:StepAreaSeries.Label>
+                                    <charts:MarkerSeriesLabel Angle="-45"/>
+                                </charts:StepAreaSeries.Label>
+                                <charts:StepAreaSeries.HintOptions>
+                                    <charts:SeriesHintOptions PointTextPattern="{}{A$LLL yyyy}: ${V}/gallon"/>
+                                </charts:StepAreaSeries.HintOptions>
+                            </charts:StepAreaSeries>
+                        </charts:ChartView.Series>
+                         <charts:ChartView.AxisY>
+                            <charts:NumericAxisY AlwaysShowZeroLevel="false">
+                                <charts:NumericAxisY.Title>
+                                    <charts:AxisTitle Text="$/gallon"
+                                                      Alignment="Outside"/>
+                                </charts:NumericAxisY.Title>
+                            </charts:NumericAxisY >
+                        </charts:ChartView.AxisY>   
+                        <charts:ChartView.AxisX>
+                            <charts:DateTimeAxisX MeasureUnit="Month">
+                                <charts:DateTimeAxisX.Label>
+                                    <charts:AxisLabel TextFormat="LLL yyyy"/>
+                                </charts:DateTimeAxisX.Label>
+                            </charts:DateTimeAxisX>
+                        </charts:ChartView.AxisX>
+                    </charts:ChartView>
+                </Grid>
+            </demo:TabItem>
+        </demo:TabControl>
+    </ContentPage.Content>
+</ContentPage>

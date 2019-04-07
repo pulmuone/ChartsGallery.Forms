@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage x:Class="ChartsGallery.Forms.Views.PieCharts"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:charts="clr-namespace:DevExpress.XamarinForms.Charts;assembly=DevExpress.XamarinForms.Charts"
+             xmlns:demo="clr-namespace:ChartsGallery.Forms.Demo"
+             xmlns:vm="clr-namespace:ChartsGallery.Forms.ViewModels"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true">
+    <ContentPage.Resources>
+        <charts:PieSeriesHintOptions x:Key="donutSeriesHintOptions"
+                                     PointTextPattern="{}{L}: {VP}%"/>
+        <charts:PieSeriesHintOptions x:Key="pieSeriesHintOptions"
+                                     PointTextPattern="{}{VP$#}%"/>
+        <charts:PieSeriesLabel x:Key="pieSeriesLabel"
+                               Position="Inside"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,8,0,0"/>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <demo:TabControl>
+            <demo:TabItem ImageSource="TabItems.Donut.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:DonutChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:PieChartView Grid.Row="1"
+                                         SelectionMode="Single"
+                                         SelectionBehavior="Explode">
+                        <charts:PieChartView.ChartStyle>
+                            <charts:PieChartStyle SeriesIndent="16"
+                                                  Palette="{Binding Palette}"/>
+                        </charts:PieChartView.ChartStyle>
+                        <charts:PieChartView.Hint>
+                            <charts:PieHint ShowMode="OnTap"/>
+                        </charts:PieChartView.Hint>
+                        <charts:PieChartView.Series>
+                            <charts:DonutSeries Data="{Binding SecuritiesByTypes}"
+                                                HintOptions="{StaticResource donutSeriesHintOptions}">
+                                <charts:DonutSeries.CenterLabel>
+                                    <charts:PieCenterTextLabel TextPattern="Securities&#x0a;By Types"/>
+                                </charts:DonutSeries.CenterLabel>
+                            </charts:DonutSeries>
+                            <charts:DonutSeries Data="{Binding SecuritiesByRisk}"
+                                                HintOptions="{StaticResource donutSeriesHintOptions}">
+                                <charts:DonutSeries.CenterLabel>
+                                    <charts:PieCenterTextLabel TextPattern="Securities&#x0a;By Risk"/>
+                                </charts:DonutSeries.CenterLabel>
+                            </charts:DonutSeries>
+                        </charts:PieChartView.Series>
+                        <charts:PieChartView.Legend>
+                            <charts:Legend Orientation="LeftToRight"
+                                           HorizontalPosition="Center"
+                                           VerticalPosition="BottomOutside"/>
+                        </charts:PieChartView.Legend>
+                    </charts:PieChartView>
+                </Grid>
+            </demo:TabItem>
+            <demo:TabItem ImageSource="TabItems.Pie.svg">
+                <Grid>
+                    <Grid.BindingContext>
+                        <vm:PieChartViewModel/>
+                    </Grid.BindingContext>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding Title}"/>
+                    <charts:PieChartView Grid.Row="1"
+                                         SelectionMode="Single"
+                                         SelectionBehavior="Hatch">
+                        <charts:PieChartView.ChartStyle>
+                            <charts:PieChartStyle SeriesIndent="16"
+                                                  Palette="{Binding Palette}"/>
+                        </charts:PieChartView.ChartStyle>
+                        <charts:PieChartView.Hint>
+                            <charts:PieHint ShowMode="OnTap"/>
+                        </charts:PieChartView.Hint>
+                        <charts:PieChartView.Series>
+                            <charts:PieSeries Data="{Binding Rating}"
+                                              HintOptions="{StaticResource pieSeriesHintOptions}"
+                                              Label="{StaticResource pieSeriesLabel}">
+                            </charts:PieSeries>
+                            <charts:PieSeries Data="{Binding Security}"
+                                              HintOptions="{StaticResource pieSeriesHintOptions}"
+                                              Label="{StaticResource pieSeriesLabel}">
+                            </charts:PieSeries>
+                        </charts:PieChartView.Series>
+                    </charts:PieChartView>
+                </Grid>
+            </demo:TabItem>
+        </demo:TabControl>
+    </ContentPage.Content>
+</ContentPage>
